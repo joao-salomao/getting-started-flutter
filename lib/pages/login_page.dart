@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:getting_started/pages/home_page.dart';
+import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
 
@@ -95,5 +97,7 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
 
     print("Email: $email | Senha: $password");
+
+    push(context, HomePage());
   }
 }
