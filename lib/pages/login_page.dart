@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/pages/home_page.dart';
+import 'package:getting_started/utils/api.dart';
 import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  void _onClickLogin() {
+  void _onClickLogin() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -97,7 +98,13 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
 
     print("Email: $email | Senha: $password");
+    bool isLogged = await Api.auth(email, password);
+    if (isLogged) {
+      print("O usuário logou com sucesso");
+      push(context, HomePage());
+    } else {
+      print("Algo deu errado e o usuário não logou");
+    }
 
-    push(context, HomePage());
   }
 }
