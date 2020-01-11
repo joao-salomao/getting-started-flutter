@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AppButton extends StatelessWidget {
-  String label;
-  Function onPressed;
+class AppRaisedButton extends StatelessWidget {
+  final String label;
+  final Function onPressed;
 
-  AppButton(this.label, { this.onPressed });
+  AppRaisedButton(this.label, { this.onPressed });
 
   @override
   Widget build(BuildContext context) {

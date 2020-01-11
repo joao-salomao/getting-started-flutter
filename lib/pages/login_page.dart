@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getting_started/widgets/app_button.dart';
+import 'package:getting_started/widgets/app_raised_button.dart';
+import 'package:getting_started/widgets/app_text_form_field.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordFocus = FocusNode();
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
   }
 
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _inputText(
+            AppTextFormField(
               "Email",
               "Digite o seu email",
               controller: _emailController,
@@ -48,13 +49,15 @@ class _LoginPageState extends State<LoginPage> {
               textInputAction: TextInputAction.next,
               nextFocus: _passwordFocus,
             ),
-            _inputText("Senha", "Digite a sua senha",
-                obscureText: true,
-                controller: _passwordController,
-                validator: _passwordValidator,
-                focusNode: _passwordFocus,
+            AppTextFormField(
+              "Senha",
+              "Digite a sua senha",
+              obscureText: true,
+              controller: _passwordController,
+              validator: _passwordValidator,
+              focusNode: _passwordFocus,
             ),
-            AppButton(
+            AppRaisedButton(
               "Login",
               onPressed: _onClickLogin,
             ),
@@ -87,38 +90,5 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
 
     print("Email: $email | Senha: $password");
-  }
-
-  Widget _inputText(
-    String label,
-    String hint, {
-    bool obscureText = false,
-    TextEditingController controller,
-    FormFieldValidator<String> validator,
-    TextInputType keyboardType,
-    TextInputAction textInputAction,
-    FocusNode focusNode,
-    FocusNode nextFocus,
-  }) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      onFieldSubmitted: (String text) {
-        if (nextFocus != null) {
-          FocusScope.of(context).requestFocus(nextFocus);
-        }
-      },
-      style: TextStyle(
-        fontSize: 20,
-      ),
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-      ),
-    );
   }
 }
