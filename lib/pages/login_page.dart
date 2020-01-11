@@ -9,11 +9,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _emailController = TextEditingController();
-
   final _passwordController = TextEditingController();
-
   final _passwordFocus = FocusNode();
 
   @override
@@ -37,8 +34,10 @@ class _LoginPageState extends State<LoginPage> {
     return Form(
       key: _formKey,
       child: Container(
+        height: double.infinity,
         padding: EdgeInsets.all(16),
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             AppTextFormField(
               "Email",
@@ -49,6 +48,9 @@ class _LoginPageState extends State<LoginPage> {
               textInputAction: TextInputAction.next,
               nextFocus: _passwordFocus,
             ),
+            SizedBox(
+              height: 16,
+            ),
             AppTextFormField(
               "Senha",
               "Digite a sua senha",
@@ -57,9 +59,12 @@ class _LoginPageState extends State<LoginPage> {
               validator: _passwordValidator,
               focusNode: _passwordFocus,
             ),
-            AppRaisedButton(
-              "Login",
-              onPressed: _onClickLogin,
+            Container(
+              width: double.infinity,
+              child: AppRaisedButton(
+                "Login",
+                onPressed: _onClickLogin,
+              ),
             ),
           ],
         ),

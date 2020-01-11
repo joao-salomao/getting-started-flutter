@@ -41,6 +41,9 @@ class AppTextFormField extends StatelessWidget {
         fontSize: 20,
       ),
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
         labelText: label,
         hintText: hint,
       ),
