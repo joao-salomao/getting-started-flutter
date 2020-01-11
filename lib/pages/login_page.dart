@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getting_started/entities/entity_user.dart';
+import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/pages/home_page.dart';
 import 'package:getting_started/utils/api.dart';
 import 'package:getting_started/utils/navigation.dart';

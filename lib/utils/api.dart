@@ -1,6 +1,6 @@
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:getting_started/entities/entity_user.dart';
+import 'package:getting_started/entities/user.dart';
 
 class Api {
   static final headers = {"Content-Type": "application/json"};
