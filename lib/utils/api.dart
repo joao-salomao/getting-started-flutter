@@ -1,10 +1,11 @@
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:getting_started/entities/entity_user.dart';
 
 class Api {
   static final headers = {"Content-Type": "application/json"};
 
-  static Future<bool> auth(String username, String password) async {
+  static Future<User> auth(String username, String password) async {
     final String url = "https://carros-springboot.herokuapp.com/api/v2/login";
 
     Map map = {
@@ -21,12 +22,11 @@ class Api {
     );
 
     if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      print('Response: $jsonResponse');
-      return true;
+      Map jsonResponse = convert.jsonDecode(response.body);
+      return User.fromJson(jsonResponse);
     } else {
       print('Request failed with status: ${response.statusCode}.');
-      return false;
+      return null;
     }
   }
 }
