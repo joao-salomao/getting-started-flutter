@@ -13,10 +13,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _passwordFocus = FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _passwordFocus = FocusNode();
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -65,10 +66,13 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _passwordFocus,
             ),
             Container(
+              margin: EdgeInsets.only(top: 16),
               width: double.infinity,
+              height: 50,
               child: AppRaisedButton(
                 "Login",
                 onPressed: _onClickLogin,
+                isLoading: _isLoading,
               ),
             ),
           ],
@@ -99,16 +103,23 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
+    setState(() {
+      _isLoading = true;
+    });
+
     print("Email: $email | Senha: $password");
-    
+
     ApiResponse response = await Api.auth(email, password);
-    
+
     if (response.ok) {
-      User user = response.result;
+      final User user = response.result;
       print(user);
       push(context, HomePage());
     } else {
       alert(context, "Ops, algo deu errado", response.message);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
