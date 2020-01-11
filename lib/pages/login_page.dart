@@ -99,13 +99,15 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
 
     print("Email: $email | Senha: $password");
-    User user = await Api.auth(email, password);
-    if (user != null) {
+    
+    ApiResponse response = await Api.auth(email, password);
+    
+    if (response.ok) {
+      User user = response.result;
       print(user);
       push(context, HomePage());
     } else {
-      print("Algo deu errado e o usuário não logou");
+      
     }
-
   }
 }
