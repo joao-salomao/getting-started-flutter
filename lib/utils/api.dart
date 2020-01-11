@@ -26,11 +26,11 @@ class Api {
         Map jsonResponse = convert.jsonDecode(response.body);
         return ApiResponse.sucess(User.fromJson(jsonResponse));
       } else {
-        print('Request failed with status: $response.');
-        return ApiResponse.error("Não foi possível fazer o login");
+        return ApiResponse.error("O usuário ou a senha estão incorretos");
       }
-    } catch (error) {
-      print(error);
+    } catch (error, exception) {
+      print("Erro no login\n Error: $error\n Exception: $exception");
+      return ApiResponse.error("Não foi possível fazer o login");
     }
   }
 }
