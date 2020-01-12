@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'package:getting_started/entities/car.dart';
 import 'package:http/http.dart' as http;
 import 'package:getting_started/entities/user.dart';
 
@@ -32,6 +33,17 @@ class Api {
       print("Erro no login\n Error: $error\n Exception: $exception");
       return ApiResponse.error("Não foi possível fazer o login");
     }
+  }
+
+  static List<Car> getCars() {
+    List<Car> cars = List<Car>();
+
+    cars.add(Car(nome: "Camaro", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Camaro_SS.png"));
+    cars.add(Car(nome: "Camaro SS 1969", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Camaro_SS.png"));
+    cars.add(Car(nome: "Dodge Challenger", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Dodge_Challenger.png"));
+    cars.add(Car(nome: "Ford Mustang 1976", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Ford_Mustang.png"));
+
+    return cars;
   }
 }
 

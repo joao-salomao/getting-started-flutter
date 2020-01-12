@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppRaisedButton extends StatelessWidget {
   final String label;
   final Function onPressed;
-  bool isLoading;
+  final bool isLoading;
 
   AppRaisedButton(this.label, {this.onPressed, this.isLoading = false});
 
