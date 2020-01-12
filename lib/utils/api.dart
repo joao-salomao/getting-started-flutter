@@ -1,6 +1,6 @@
 import 'dart:convert' as convert;
-import 'package:getting_started/entities/car.dart';
 import 'package:http/http.dart' as http;
+import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
 
 class Api {
