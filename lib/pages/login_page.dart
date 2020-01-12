@@ -14,8 +14,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(text: "user");
+  final TextEditingController _passwordController = TextEditingController(text: "123");
   final FocusNode _passwordFocus = FocusNode();
   bool _isLoading = false;
 
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
     if (response.ok) {
       final User user = response.result;
       print(user);
-      push(context, HomePage());
+      push(context, HomePage(), replace: true);
     } else {
       alert(context, "Ops, algo deu errado", response.message);
     }
