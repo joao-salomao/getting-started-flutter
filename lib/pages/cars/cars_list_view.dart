@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
+import 'package:getting_started/utils/api.dart';
 
 class CarsListView extends StatelessWidget {
-  final List<Car> cars;
-
-  CarsListView(this.cars);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _listView(cars),
+    return _body();
+  }
+
+  _body() {
+    Future<List<Car>> future = Api.getCars();
+    return FutureBuilder(
+      future: future,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        List<Car> cars = snapshot.data;
+        return _listView(cars);
+      },
     );
   }
 
