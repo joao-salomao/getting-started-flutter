@@ -13,7 +13,6 @@ class CarsListView extends StatefulWidget {
 
 class _CarsListViewState extends State<CarsListView>
     with AutomaticKeepAliveClientMixin<CarsListView> {
-  
   @override
   bool get wantKeepAlive => true;
 
@@ -53,11 +52,17 @@ class _CarsListViewState extends State<CarsListView>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Center(
-                    child: Image.network(
-                      car.urlFoto,
-                      width: 300,
-                    ),
+                  Image.network(
+                    car.urlFoto,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    },
                   ),
                   _text(car.nome, fontSize: 25),
                   _text("DESCRIÇÃO....", fontSize: 16),
