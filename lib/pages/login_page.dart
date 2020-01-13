@@ -108,8 +108,6 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
 
-    print("Email: $email | Senha: $password");
-
     ApiResponse response = await Api.auth(email, password);
 
     if (response.ok) {
