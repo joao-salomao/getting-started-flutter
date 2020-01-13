@@ -4,8 +4,6 @@ import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
 
 class Api {
-  static final headers = {"Content-Type": "application/json"};
-
   static Future<ApiResponse> auth(String username, String password) async {
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/login";
@@ -14,6 +12,8 @@ class Api {
         "username": username,
         "password": password,
       };
+
+      Map<String, String> headers = await _getHeaders();
 
       String mapEncoded = convert.jsonEncode(map);
 
@@ -38,9 +38,13 @@ class Api {
   static Future<List<Car>> getCars(String type) async {
     try {
       final url =
-          "http://carros-springboot.herokuapp.com/api/v1/carros/tipo/$type";
-      final response = await http.get(url);
+          "http://carros-springboot.herokuapp.com/api/v2/carros/tipo/$type";
+
+      Map<String, String> headers = await _getHeaders();
+
+      final response = await http.get(url, headers: headers);
       final json = response.body;
+      print(json);
       final List mapList = convert.jsonDecode(json);
       final List<Car> cars =
           mapList.map<Car>((map) => Car.fromJson(map)).toList();
@@ -49,6 +53,17 @@ class Api {
     } catch (error) {
       return [];
     }
+  }
+
+  static Future<Map<String, String>> _getHeaders() async {
+    User user = await User.get();
+    if (user == null) {
+      return {"Content-Type": "application/json"};
+    }
+    return {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${user.token}"
+    };
   }
 }
 
