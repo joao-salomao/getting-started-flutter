@@ -25,7 +25,6 @@ class Api {
 
       if (response.statusCode == 200) {
         Map jsonResponse = convert.jsonDecode(response.body);
-        print(response.body);
         return ApiResponse.sucess(User.fromJson(jsonResponse));
       } else {
         return ApiResponse.error("O usuário ou a senha estão incorretos");
@@ -38,7 +37,8 @@ class Api {
 
   static Future<List<Car>> getCars(String type) async {
     try {
-      final url = "http://carros-springboot.herokuapp.com/api/v1/carros/tipo/$type";
+      final url =
+          "http://carros-springboot.herokuapp.com/api/v1/carros/tipo/$type";
       final response = await http.get(url);
       final json = response.body;
       final List mapList = convert.jsonDecode(json);

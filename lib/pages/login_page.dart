@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (response.ok) {
       final User user = response.result;
-      print(user);
+      user.saveToPrefs();
       push(context, HomePage(), replace: true);
     } else {
       alert(context, "Ops, algo deu errado", response.message);

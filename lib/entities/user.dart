@@ -49,6 +49,7 @@ class User {
   static Future<User> get() async {
     String json = await Prefs.getString("USER");
     Map map = convert.jsonDecode(json);
-    return User.fromJson(map);
+    User user = User.fromJson(map); 
+    return user;
   }
 }
