@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
-import 'package:getting_started/utils/api.dart';
-import 'package:getting_started/widgets/app_drawer_list.dart';
 
-class HomePage extends StatelessWidget {
+class CarsListView extends StatelessWidget {
+  final List<Car> cars;
+
+  CarsListView(this.cars);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-      ),
-      drawer: DrawerList(),
-      body: _body(),
+    return Container(
+      child: _listView(cars),
     );
   }
 
-  _body() {
-    List<Car> cars = Api.getCars();
-
+  Container _listView(List<Car> cars) {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
@@ -37,19 +33,16 @@ class HomePage extends StatelessWidget {
                       width: 300,
                     ),
                   ),
-                  Text(
-                    car.nome,
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text("DESCRIÇÃO...."),
+                  _text(car.nome, fontSize: 25),
+                  _text("DESCRIÇÃO....", fontSize: 16),
                   ButtonBar(
                     children: <Widget>[
                       FlatButton(
-                        child: Text("Detalhes", style: TextStyle(fontSize: 19),),
+                        child: _text("Detalhes"),
                         onPressed: () {/* ... */},
                       ),
                       FlatButton(
-                        child: Text("Compartilhar", style: TextStyle(fontSize: 19),),
+                        child: _text("Compartilhar"),
                         onPressed: () {/* ... */},
                       ),
                     ],
@@ -60,6 +53,13 @@ class HomePage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Text _text(String text, {double fontSize = 19}) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: fontSize),
     );
   }
 }

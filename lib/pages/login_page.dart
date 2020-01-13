@@ -1,11 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:getting_started/pages/home_page.dart';
+import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/utils/api.dart';
 import 'package:getting_started/utils/navigation.dart';
-import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/widgets/app_alert.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
+import 'cars/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override

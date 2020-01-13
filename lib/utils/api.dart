@@ -35,15 +35,19 @@ class Api {
     }
   }
 
-  static List<Car> getCars() {
-    List<Car> cars = List<Car>();
+  static Future<List<Car>> getCars() async {
+    try {
+      final url = "http://carros-springboot.herokuapp.com/api/v1/carros";
+      final response = await http.get(url);
+      final json = response.body;
+      final List mapList = convert.jsonDecode(json);
+      final List<Car> cars =
+          mapList.map<Car>((map) => Car.fromJson(map)).toList();
 
-    cars.add(Car(nome: "Camaro", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Camaro_SS.png"));
-    cars.add(Car(nome: "Camaro SS 1969", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Camaro_SS.png"));
-    cars.add(Car(nome: "Dodge Challenger", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Dodge_Challenger.png"));
-    cars.add(Car(nome: "Ford Mustang 1976", urlFoto: "http://www.livroandroid.com.br/livro/carros/classicos/Ford_Mustang.png"));
-
-    return cars;
+      return cars;
+    } catch (error) {
+      return [];
+    }
   }
 }
 
