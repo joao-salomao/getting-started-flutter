@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Home Page"),
+          title: Text("Carros"),
           bottom: TabBar(
             tabs: <Widget>[
               Tab(text: "Clássicos"),
