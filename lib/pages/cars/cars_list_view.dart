@@ -3,13 +3,17 @@ import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/utils/api.dart';
 
 class CarsListView extends StatelessWidget {
+  final String carsType;
+
+  CarsListView(this.carsType);
+
   @override
   Widget build(BuildContext context) {
     return _body();
   }
 
   _body() {
-    Future<List<Car>> future = Api.getCars();
+    Future<List<Car>> future = Api.getCars(carsType);
     return FutureBuilder(
       future: future,
       builder: (context, snapshot) {

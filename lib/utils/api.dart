@@ -35,9 +35,9 @@ class Api {
     }
   }
 
-  static Future<List<Car>> getCars() async {
+  static Future<List<Car>> getCars(String type) async {
     try {
-      final url = "http://carros-springboot.herokuapp.com/api/v1/carros";
+      final url = "http://carros-springboot.herokuapp.com/api/v1/carros/tipo/$type";
       final response = await http.get(url);
       final json = response.body;
       final List mapList = convert.jsonDecode(json);

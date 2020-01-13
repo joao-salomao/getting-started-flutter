@@ -21,9 +21,9 @@ class HomePage extends StatelessWidget {
         drawer: DrawerList(),
         body: TabBarView(
           children: <Widget>[
-            CarsListView(),
-            CarsListView(),
-            CarsListView(),
+            CarsListView("classicos"),
+            CarsListView("esportivos"),
+            CarsListView("luxo"),
           ],
         ),
       ),
