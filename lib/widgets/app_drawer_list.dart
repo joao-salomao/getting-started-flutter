@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/pages/login_page.dart';
 import 'package:getting_started/utils/navigation.dart';
 
@@ -11,12 +12,12 @@ class DrawerList extends StatelessWidget {
       child: Drawer(
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("João Salomão"),
-              accountEmail: Text("xxxx@gmail.com"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(url),
-              ),
+            FutureBuilder<User>(
+              future: User.get(),
+              builder: (context, snapshot) {
+                User user = snapshot.data;
+                return user != null ? _header(user) : Container();
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
@@ -29,6 +30,16 @@ class DrawerList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  UserAccountsDrawerHeader _header(User user) {
+    return UserAccountsDrawerHeader(
+            accountName: Text(user.nome),
+            accountEmail: Text(user.email),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(user.urlFoto),
+            ),
+          );
   }
 
   _onClickLogout(BuildContext context) {
