@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:getting_started/pages/cars/cars_list_view.dart';
 import 'package:getting_started/widgets/app_drawer_list.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
