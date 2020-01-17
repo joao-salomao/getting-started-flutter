@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/user.dart';
+import 'package:getting_started/pages/cars/login_bloc.dart';
 import 'package:getting_started/utils/api.dart';
 import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_alert.dart';
@@ -14,21 +14,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final LoginBloc _bloc = LoginBloc();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController(text: "user");
-  final TextEditingController _passwordController = TextEditingController(text: "123");
+  final TextEditingController _emailController =
+      TextEditingController(text: "user");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "123");
   final FocusNode _passwordFocus = FocusNode();
-  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    Future<User> future = User.get();
-    future.then((user) {
-      if (user != null) {
-        push(context, HomePage(), replace: true);
-      }
-    });
+    _initLoggedUser();
+  }
+
+  _initLoggedUser() async {
+    User user = await _bloc.getLoggedUser();
+    if (user != null) {
+      push(context, HomePage(), replace: true);
+    }
   }
 
   @override
@@ -72,15 +76,20 @@ class _LoginPageState extends State<LoginPage> {
               validator: _passwordValidator,
               focusNode: _passwordFocus,
             ),
-            Container(
-              margin: EdgeInsets.only(top: 16),
-              width: double.infinity,
-              height: 50,
-              child: AppRaisedButton(
-                "Login",
-                onPressed: _onClickLogin,
-                isLoading: _isLoading,
-              ),
+            StreamBuilder(
+              stream: _bloc.stream,
+              builder: (context, snapshot) {
+                return Container(
+                  margin: EdgeInsets.only(top: 16),
+                  width: double.infinity,
+                  height: 50,
+                  child: AppRaisedButton(
+                    "Login",
+                    onPressed: _onClickLogin,
+                    isLoading: snapshot.hasData,
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -110,11 +119,7 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    setState(() {
-      _isLoading = true;
-    });
-
-    ApiResponse response = await Api.auth(email, password);
+    ApiResponse response = await _bloc.authUser(email, password);
 
     if (response.ok) {
       final User user = response.result;
@@ -123,8 +128,11 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       alert(context, "Ops, algo deu errado", response.message);
     }
-    setState(() {
-      _isLoading = false;
-    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
   }
 }
