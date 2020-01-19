@@ -1,33 +1,16 @@
 import 'dart:async';
-import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/utils/api.dart';
+import 'package:getting_started/utils/simple_bloc.dart';
 
-class LoginBloc {
-  final StreamController _streamController = StreamController<bool>();
-  Stream get stream => _streamController.stream;
-
-  Future<User> getLoggedUser() async {
-    try {
-      User user = await User.get();
-      return user;
-    } catch (error) {
-      print(error);
-      return null;
-    }
-  }
-
+class LoginBloc extends SimpleBloc<bool> {
   Future<ApiResponse> authUser(String username, String password) async {
     try {
-      _streamController.add(true);
+      add(true);
       ApiResponse response = await Api.auth(username, password);
-      _streamController.add(false);
+      add(false);
       return response;
     } catch (error) {
-      _streamController.addError(error);
+      addError(error);
     }
-  }
-
-  void dispose() {
-    _streamController.close();
   }
 }

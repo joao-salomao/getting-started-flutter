@@ -1,22 +1,14 @@
-import 'dart:async';
-import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/utils/api.dart';
+import 'package:getting_started/entities/car.dart';
+import 'package:getting_started/utils/simple_bloc.dart';
 
-class CarsBloc {
-  final StreamController _streamController = StreamController<List<Car>>();
-  Stream get stream => _streamController.stream;
-
+class CarsBloc extends SimpleBloc<List<Car>> {
   loadCars(String carsType) async {
     try {
-    List<Car> cars = await Api.getCars(carsType);
-    _streamController.add(cars);
-
-    } catch(error) {
-      _streamController.addError(error);
+      List<Car> cars = await Api.getCars(carsType);
+      add(cars);
+    } catch (error) {
+      addError(error);
     }
-  }
-
-  void dispose() {
-    _streamController.close();
   }
 }
