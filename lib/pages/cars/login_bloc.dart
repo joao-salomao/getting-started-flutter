@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/utils/api.dart';
 
@@ -8,15 +7,24 @@ class LoginBloc {
   Stream get stream => _streamController.stream;
 
   Future<User> getLoggedUser() async {
-    User user = await User.get();
-    return user;
+    try {
+      User user = await User.get();
+      return user;
+    } catch (error) {
+      print(error);
+      return null;
+    }
   }
 
   Future<ApiResponse> authUser(String username, String password) async {
-    _streamController.add(true);
-    ApiResponse response = await Api.auth(username, password);
-    _streamController.add(false);
-    return response;
+    try {
+      _streamController.add(true);
+      ApiResponse response = await Api.auth(username, password);
+      _streamController.add(false);
+      return response;
+    } catch (error) {
+      _streamController.addError(error);
+    }
   }
 
   void dispose() {
