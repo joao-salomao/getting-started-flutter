@@ -24,12 +24,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    _userIsLogged();
     super.initState();
-    _initLoggedUser();
   }
 
-  _initLoggedUser() async {
-    User user = await _bloc.getLoggedUser();
+  _userIsLogged() async {
+    User user = await User.get();
     if (user != null) {
       push(context, HomePage(), replace: true);
     }
@@ -133,6 +133,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _bloc.dispose();
+    _bloc.closeStream();
   }
 }

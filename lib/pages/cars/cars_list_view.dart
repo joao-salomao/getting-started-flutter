@@ -117,6 +117,6 @@ class _CarsListViewState extends State<CarsListView>
   @override
   void dispose() {
     super.dispose();
-    _bloc.dispose();
+    _bloc.closeStream();
   }
 }
