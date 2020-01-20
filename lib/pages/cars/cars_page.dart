@@ -40,21 +40,28 @@ class _CarsListViewState extends State<CarsPage>
           return AppLoader();
         }
         List<Car> cars = snapshot.data;
-        return CarsListView(cars);
+        return RefreshIndicator(
+          child: CarsListView(cars),
+          onRefresh: _onRefresh,
+        );
       },
     );
   }
 
   Center _errorApi() {
     return Center(
-          child: Text(
-            "Não foi possível carregar os carros",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.red,
-            ),
-          ),
-        );
+      child: Text(
+        "Não foi possível carregar os carros",
+        style: TextStyle(
+          fontSize: 25,
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
+  Future<List<Car>> _onRefresh() {
+    return _bloc.loadCars(carsType);
   }
 
   @override
