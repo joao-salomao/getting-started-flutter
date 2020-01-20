@@ -11,6 +11,8 @@ class CarPage extends StatefulWidget {
 }
 
 class _CarPageState extends State<CarPage> {
+  Car get car => widget.car;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +43,53 @@ class _CarPageState extends State<CarPage> {
     );
   }
 
-  _body() => Center(child: Image.network(widget.car.urlFoto));
+  _body() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: ListView(
+        children: <Widget>[
+          Image.network(car.urlFoto),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    car.nome,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    car.tipo,
+                    style: TextStyle(fontSize: 16),
+                  )
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 35,
+                    ),
+                    onPressed: _onClickFavorite,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.share,
+                      size: 35,
+                    ),
+                    onPressed: _onClickShare,
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
   void _onClickPopupMenuItem(String value) {
     switch (value) {
@@ -53,4 +101,8 @@ class _CarPageState extends State<CarPage> {
         break;
     }
   }
+
+  void _onClickFavorite() {}
+
+  void _onClickShare() {}
 }
