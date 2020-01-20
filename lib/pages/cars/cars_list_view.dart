@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
+import 'package:getting_started/pages/cars/car_page.dart';
 import 'package:getting_started/pages/cars/cars_bloc.dart';
+import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_loader.dart';
 
 class CarsListView extends StatefulWidget {
@@ -88,7 +90,9 @@ class _CarsListViewState extends State<CarsListView>
                     children: <Widget>[
                       FlatButton(
                         child: _text("Detalhes"),
-                        onPressed: () {/* ... */},
+                        onPressed: () {
+                          push(context, CarPage(car));
+                        },
                       ),
                       FlatButton(
                         child: _text("Compartilhar"),
