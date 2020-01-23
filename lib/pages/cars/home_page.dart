@@ -39,9 +39,18 @@ class _HomePageState extends State<HomePage>
         bottom: TabBar(
           controller: _tabController,
           tabs: <Widget>[
-            Tab(text: "Clássicos"),
-            Tab(text: "Esportivos"),
-            Tab(text: "Luxo")
+            Tab(
+              text: "Clássicos",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Esportivos",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Luxo",
+              icon: Icon(Icons.directions_car),
+            )
           ],
         ),
       ),
