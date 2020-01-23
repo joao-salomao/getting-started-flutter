@@ -23,19 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode _passwordFocus = FocusNode();
 
   @override
-  void initState() {
-    _userIsLogged();
-    super.initState();
-  }
-
-  _userIsLogged() async {
-    User user = await User.get();
-    if (user != null) {
-      push(context, HomePage(), replace: true);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
