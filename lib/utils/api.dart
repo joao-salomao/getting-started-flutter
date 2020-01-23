@@ -1,8 +1,8 @@
 import 'dart:convert' as convert;
+import 'package:getting_started/dao/car_dao.dart';
 import 'package:http/http.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
-import 'package:getting_started/pages/cars/car_dao.dart';
 
 class Api {
   static Future<ApiResponse> auth(String username, String password) async {
