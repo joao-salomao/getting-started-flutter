@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CarPage extends StatefulWidget {
-  static String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;";
+  static String loremIpsum =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Quamvis enim depravatae non sint, pravae tamen esse possunt. Minime vero istorum quidem, inquit. Sic enim censent, oportunitatis esse beate vivere. Sin est etiam corpus, ista explanatio naturae nempe hoc effecerit, ut ea, quae ante explanationem tenebamus, relinquamus. Duo Reges: constructio interrete. Esse enim quam vellet iniquus iustus poterat inpune. Quorum altera prosunt, nocent altera. Aperiendum est igitur, quid sit voluptas;";
   final Car car;
 
   CarPage(this.car);
@@ -50,7 +52,11 @@ class _CarPageState extends State<CarPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(car.urlFoto),
+          CachedNetworkImage(
+            imageUrl: car.urlFoto,
+            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Center(child:Icon(Icons.error)),
+          ),
           _carHeader(),
           _carBody(),
         ],
@@ -94,11 +100,13 @@ class _CarPageState extends State<CarPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           _text("Descrição", bold: true),
           _text(
-              loremIpsum,
-              justify: true,
+            loremIpsum,
+            justify: true,
           )
         ],
       ),

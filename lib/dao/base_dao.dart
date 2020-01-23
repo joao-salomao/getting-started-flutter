@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:getting_started/entities/entity.dart';
-import 'package:getting_started/pages/cars/db-helper.dart';
+import 'package:getting_started/dao/db-helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Data Access Object

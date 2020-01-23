@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/pages/cars/car_page.dart';
@@ -23,17 +24,12 @@ class CarsListView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Image.network(
-                    car.urlFoto,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    },
+                  CachedNetworkImage(
+                    imageUrl: car.urlFoto,
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Center(child: Icon(Icons.error)),
                   ),
                   _text(car.nome, fontSize: 25),
                   _text("DESCRIÇÃO....", fontSize: 16),
