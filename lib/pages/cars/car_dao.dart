@@ -4,7 +4,7 @@ import 'package:getting_started/pages/cars/db-helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Data Access Object
-class CarroDAO {
+class CarDAO {
 
   Future<Database> get db => DatabaseHelper.getInstance().db;
 

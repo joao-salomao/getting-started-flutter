@@ -2,7 +2,7 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
-import 'package:getting_started/pages/cars/carro-dao.dart';
+import 'package:getting_started/pages/cars/car_dao.dart';
 
 class Api {
   static Future<ApiResponse> auth(String username, String password) async {
@@ -49,7 +49,7 @@ class Api {
       final List<Car> cars =
           mapList.map<Car>((map) => Car.fromJson(map)).toList();
 
-      final dao = CarroDAO();
+      final dao = CarDAO();
       cars.forEach(dao.save);
       return cars;
     } catch (error) {
