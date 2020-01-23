@@ -52,6 +52,14 @@ class _HomePageState extends State<HomePage>
           CarsPage("luxo"),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _onClickAdd,
+      ),
     );
+  }
+
+  void _onClickAdd() {
+    print("clicou em add");
   }
 }

@@ -50,7 +50,11 @@ class _CarPageState extends State<CarPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(car.urlFoto),
+          CachedNetworkImage(
+            imageUrl: car.urlFoto ?? "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
+            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Center(child:Icon(Icons.error)),
+          ),
           _carHeader(),
           _carBody(),
         ],
