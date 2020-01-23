@@ -17,6 +17,12 @@ class CarsBloc extends SimpleBloc<List<Car>> {
       }
 
       cars = await Api.getCars(carsType);
+
+      if (cars.isNotEmpty) {
+        final dao = CarDAO();
+        cars.forEach(dao.save);
+      }  
+
       add(cars);
     } catch (error) {
       addError(error);

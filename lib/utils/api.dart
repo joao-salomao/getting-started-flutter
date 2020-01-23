@@ -48,9 +48,7 @@ class Api {
       final List mapList = convert.jsonDecode(json);
       final List<Car> cars =
           mapList.map<Car>((map) => Car.fromJson(map)).toList();
-
-      final dao = CarDAO();
-      cars.forEach(dao.save);
+          
       return cars;
     } catch (error) {
       return [];
