@@ -1,18 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carros/pages/carros/carro.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:getting_started/entities/car.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class CarroFormPage extends StatefulWidget {
-  final Carro carro;
+class CarFormPage extends StatefulWidget {
+  final Car car;
 
-  CarroFormPage({this.carro});
+  CarFormPage({this.car});
 
   @override
-  State<StatefulWidget> createState() => _CarroFormPageState();
+  State<StatefulWidget> createState() => _CarFormPageState();
 }
 
-class _CarroFormPageState extends State<CarroFormPage> {
+class _CarFormPageState extends State<CarFormPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final tNome = TextEditingController();
@@ -23,7 +23,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
   var _showProgress = false;
 
-  Carro get carro => widget.carro;
+  Car get carro => widget.car;
 
   // Add validate email function.
   String _validateNome(String value) {
@@ -51,7 +51,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          carro != null ? carro.nome : "Novo Carro",
+          carro != null ? carro.nome : "Novo Car",
         ),
       ),
       body: Container(
@@ -183,7 +183,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     });
   }
 
-  getTipoInt(Carro carro) {
+  getTipoInt(Car carro) {
     switch (carro.tipo) {
       case "classicos":
         return 0;
@@ -211,12 +211,12 @@ class _CarroFormPageState extends State<CarroFormPage> {
     }
 
     // Cria o carro
-    var c = carro ?? Carro();
+    var c = carro ?? Car();
     c.nome = tNome.text;
     c.descricao = tDesc.text;
     c.tipo = _getTipo();
 
-    print("Carro: $c");
+    print("Car: $c");
 
     setState(() {
       _showProgress = true;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:getting_started/pages/cars/car_form_page.dart';
+import 'package:getting_started/utils/navigation.dart';
 
 class CarPage extends StatefulWidget {
   static String loremIpsum =
@@ -129,6 +131,7 @@ class _CarPageState extends State<CarPage> {
       case "share":
         break;
       case 'edit':
+        push(context, CarFormPage(car: car));
         break;
       case 'delete':
         break;

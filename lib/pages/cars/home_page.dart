@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:getting_started/pages/cars/car_form_page.dart';
+import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/utils/prefs.dart';
 import 'package:getting_started/pages/cars/cars_page.dart';
 import 'package:getting_started/widgets/app_drawer_list.dart';
@@ -60,6 +62,6 @@ class _HomePageState extends State<HomePage>
   }
 
   void _onClickAdd() {
-    print("clicou em add");
+    push(context, CarFormPage());
   }
 }
