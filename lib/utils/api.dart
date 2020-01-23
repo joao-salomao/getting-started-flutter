@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'package:getting_started/dao/car_dao.dart';
 import 'package:http/http.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
@@ -44,11 +45,10 @@ class Api {
 
       final response = await http.get(url, headers: headers);
       final json = response.body;
-      print(json);
       final List mapList = convert.jsonDecode(json);
       final List<Car> cars =
           mapList.map<Car>((map) => Car.fromJson(map)).toList();
-
+          
       return cars;
     } catch (error) {
       return [];

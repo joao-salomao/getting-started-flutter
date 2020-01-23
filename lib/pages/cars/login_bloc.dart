@@ -11,6 +11,7 @@ class LoginBloc extends SimpleBloc<bool> {
       add(false);
     } catch (error) {
       addError(error);
+      add(false);
     }
     return response;
   }
