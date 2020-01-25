@@ -16,20 +16,26 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future delayFuture = Future.delayed(Duration(seconds: 3));
-    Future dbFuture = DatabaseHelper.getInstance().db; 
-    Future<User> userFuture = User.get();
+//    Future delayFuture = Future.delayed(Duration(seconds: 3));
+//    Future dbFuture = DatabaseHelper.getInstance().db;
+      User.get().then((user) => {
+        if (user != null) {
+          push(context, HomePage(), replace: true)
+        } else {
+          push(context, LoginPage(), replace: true)
+        }
+      });
 
-    Future.wait([delayFuture, dbFuture, userFuture]).then((List results) {
-      User user = results[2];
-    if (user != null) {
-      push(context, HomePage(), replace: true);
-    } else {
-      push(context, LoginPage(), replace: true);
-    }
-    });
+//    Future.wait([delayFuture, dbFuture, userFuture]).then((List results) {
+//      User user = results[2];
+//    if (user != null) {
+//      push(context, HomePage(), replace: true);
+//    } else {
+//      push(context, LoginPage(), replace: true);
+//    }
+//    });
   }
-  
+
 
   @override
   Widget build(BuildContext context) {

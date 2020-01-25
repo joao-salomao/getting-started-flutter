@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getting_started/entities/car.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:getting_started/widgets/app_raised_button.dart';
+import 'package:getting_started/widgets/app_text_form_field.dart';
 
 class CarFormPage extends StatefulWidget {
   final Car car;
@@ -85,47 +87,30 @@ class _CarFormPageState extends State<CarFormPage> {
           ),
           _radioTipo(),
           Divider(),
-          TextFormField(
+          AppTextFormField(
+            'Nome',
+            '',
             controller: tNome,
             keyboardType: TextInputType.text,
             validator: _validateNome,
-            style: TextStyle(color: Colors.blue, fontSize: 20),
-            decoration: new InputDecoration(
-              hintText: '',
-              labelText: 'Nome',
-            ),
           ),
-          TextFormField(
+          SizedBox(
+            height: 16,
+          ),
+          AppTextFormField(
+            'Descrição',
+            '',
             controller: tDesc,
             keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 20,
-            ),
-            decoration: new InputDecoration(
-              hintText: '',
-              labelText: 'Descrição',
-            ),
           ),
-          Container(
-            height: 50,
-            margin: new EdgeInsets.only(top: 20.0),
-            child: RaisedButton(
-              color: Colors.blue,
-              child: _showProgress
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : Text(
-                      "Salvar",
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-              onPressed: _onClickSalvar,
-            ),
-          )
+          SizedBox(
+            height: 16,
+          ),
+          AppRaisedButton(
+            "Salvar",
+            isLoading: _showProgress,
+            onPressed: _onClickSalvar,
+          ),
         ],
       ),
     );
