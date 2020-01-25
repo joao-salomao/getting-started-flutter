@@ -5,6 +5,7 @@ import 'package:getting_started/services/api/api.dart';
 
 class CarsApi {
   static Future<ApiResponse> create(Car car) async {
+    ApiResponse apiResponse;
     try {
       final String url =
           "https://carros-springboot.herokuapp.com/api/v2/carros";
@@ -17,17 +18,19 @@ class CarsApi {
       if (response.statusCode == 201) {
         Car car = Car.fromMap(mapResponse);
         print("Novo carro: ${car.id}");
-        return ApiResponse.sucess(car);
+        apiResponse = ApiResponse.sucess(car);
       } else {
-        ApiResponse.error(mapResponse['error']);
+        apiResponse = ApiResponse.error(mapResponse['error']);
       }
     } catch (error) {
-      return ApiResponse.error(
+      apiResponse = ApiResponse.error(
           "Não foi possível salvar o carro. Tente novamente");
     }
+    return apiResponse;
   }
 
   static Future<ApiResponse> update(Car car) async {
+    ApiResponse apiResponse;
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
       String json = car.toJson();
@@ -38,17 +41,19 @@ class CarsApi {
       if (response.statusCode == 200) {
         Car car = Car.fromMap(mapResponse);
         print("Carro Atualizado com sucesso");
-        return ApiResponse.sucess(car);
+        apiResponse = ApiResponse.sucess(car);
       } else {
-        ApiResponse.error(mapResponse['error']);
+        apiResponse = ApiResponse.error(mapResponse['error']);
       }
     } catch (error) {
-      return ApiResponse.error(
+      apiResponse = ApiResponse.error(
           "Não foi possível salvar o carro. Tente novamente");
     }
+    return apiResponse;
   }
 
     static Future<ApiResponse> delete(Car car) async {
+    ApiResponse apiResponse;
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
 
@@ -57,13 +62,14 @@ class CarsApi {
       Map mapResponse = convert.json.decode(response.body);
       if (response.statusCode == 200) {
         print("Carro deletado com sucesso");
-        return ApiResponse.sucess(true);
+        apiResponse = ApiResponse.sucess(true);
       } else {
-        ApiResponse.error(mapResponse['error']);
+        apiResponse = ApiResponse.error(mapResponse['error']);
       }
     } catch (error) {
-      return ApiResponse.error(
+      apiResponse = ApiResponse.error(
           "Não foi possível deletar o carro. Tente novamente");
     }
+    return apiResponse;
   }
 }
