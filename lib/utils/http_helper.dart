@@ -26,11 +26,18 @@ Future<http.Response> delete(String url) async {
 }
 
 Future<Map<String, String>> _headers() async {
+  Map<String, String> headers;
   User user = await User.get();
 
-  Map<String, String> headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer ${user.token}"
-  };
+  if (user != null) {
+    headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${user.token}"
+    };
+  } else {
+    headers = {
+      "Content-Type": "application/json",
+    };
+  }
   return headers;
 }
