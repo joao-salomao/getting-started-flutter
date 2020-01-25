@@ -4,7 +4,7 @@ import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/services/api/api.dart';
 
 class CarsApi {
-  static Future<ApiResponse<Car>> create(Car car) async {
+  static Future<ApiResponse> create(Car car) async {
     try {
       final String url =
           "https://carros-springboot.herokuapp.com/api/v2/carros";
@@ -27,7 +27,7 @@ class CarsApi {
     }
   }
 
-  static Future<ApiResponse<Car>> update(Car car) async {
+  static Future<ApiResponse> update(Car car) async {
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
       Map<String, String> headers = await Api.getHeaders();
@@ -46,6 +46,26 @@ class CarsApi {
     } catch (error) {
       return ApiResponse.error(
           "Não foi possível salvar o carro. Tente novamente");
+    }
+  }
+
+    static Future<ApiResponse> delete(Car car) async {
+    try {
+      final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
+      Map<String, String> headers = await Api.getHeaders();
+
+      final response = await http.delete(url, headers: headers);
+
+      Map mapResponse = convert.json.decode(response.body);
+      if (response.statusCode == 200) {
+        print("Carro deletado com sucesso");
+        return ApiResponse.sucess(true);
+      } else {
+        ApiResponse.error(mapResponse['error']);
+      }
+    } catch (error) {
+      return ApiResponse.error(
+          "Não foi possível deletar o carro. Tente novamente");
     }
   }
 }

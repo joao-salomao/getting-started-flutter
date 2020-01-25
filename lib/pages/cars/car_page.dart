@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:getting_started/entities/car.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:getting_started/pages/cars/car_form_page.dart';
+import 'package:getting_started/services/api/api.dart';
+import 'package:getting_started/services/api/cars_api.dart';
 import 'package:getting_started/utils/navigation.dart';
+import 'package:getting_started/widgets/app_alert.dart';
 
 class CarPage extends StatefulWidget {
   static String loremIpsum =
@@ -134,7 +137,19 @@ class _CarPageState extends State<CarPage> {
         push(context, CarFormPage(car: car));
         break;
       case 'delete':
+        _deleteCar(car);
         break;
+    }
+  }
+
+  _deleteCar(Car car) async {
+    ApiResponse response = await CarsApi.delete(car);
+    if (response.ok) {
+      alert(context, "Sucesso", "O carro foi deletado com sucesso", callback: () {
+        Navigator.pop(context);
+      });
+    } else {
+      alert(context, "Algo deu errado", response.message);
     }
   }
 

@@ -218,7 +218,7 @@ class _CarFormPageState extends State<CarFormPage> {
     car.descricao = tDesc.text;
     car.tipo = _getTipo();
 
-    ApiResponse<Car> response = await CarsApi.update(car);
+    ApiResponse response = await CarsApi.update(car);
 
     if (response.ok) {
       alert(context, "Sucesso", "O carro foi atualizado com sucesso");
@@ -234,7 +234,7 @@ class _CarFormPageState extends State<CarFormPage> {
     c.descricao = tDesc.text;
     c.tipo = _getTipo();
 
-    ApiResponse<Car> response = await CarsApi.create(c);
+    ApiResponse response = await CarsApi.create(c);
 
     if (response.ok) {
       alert(context, "Sucesso", "O carro foi salvo com sucesso");
