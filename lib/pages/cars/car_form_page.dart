@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getting_started/entities/car.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:getting_started/services/api/api.dart';
+import 'package:getting_started/services/api/cars_api.dart';
+import 'package:getting_started/widgets/app_alert.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
 
@@ -25,7 +28,7 @@ class _CarFormPageState extends State<CarFormPage> {
 
   var _showProgress = false;
 
-  Car get carro => widget.car;
+  Car get car => widget.car;
 
   // Add validate email function.
   String _validateNome(String value) {
@@ -41,10 +44,10 @@ class _CarFormPageState extends State<CarFormPage> {
     super.initState();
 
     // Copia os dados do carro para o form
-    if (carro != null) {
-      tNome.text = carro.nome;
-      tDesc.text = carro.descricao;
-      _radioIndex = getTipoInt(carro);
+    if (car != null) {
+      tNome.text = car.nome;
+      tDesc.text = car.descricao;
+      _radioIndex = getTipoInt(car);
     }
   }
 
@@ -53,7 +56,7 @@ class _CarFormPageState extends State<CarFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          carro != null ? carro.nome : "Novo Car",
+          car != null ? car.nome : "Novo Car",
         ),
       ),
       body: Container(
@@ -107,7 +110,7 @@ class _CarFormPageState extends State<CarFormPage> {
             height: 16,
           ),
           AppRaisedButton(
-            "Salvar",
+            car == null ? "Salvar" : "Atualizar",
             isLoading: _showProgress,
             onPressed: _onClickSalvar,
           ),
@@ -117,9 +120,9 @@ class _CarFormPageState extends State<CarFormPage> {
   }
 
   _headerFoto() {
-    return carro != null
+    return car != null
         ? CachedNetworkImage(
-            imageUrl: carro.urlFoto,
+            imageUrl: car.urlFoto ?? "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
           )
         : Image.asset(
             "assets/images/camera.png",
@@ -195,26 +198,48 @@ class _CarFormPageState extends State<CarFormPage> {
       return;
     }
 
-    // Cria o carro
-    var c = carro ?? Car();
-    c.nome = tNome.text;
-    c.descricao = tDesc.text;
-    c.tipo = _getTipo();
-
-    print("Car: $c");
-
     setState(() {
       _showProgress = true;
     });
 
-    print("Salvar o carro $c");
-
-    await Future.delayed(Duration(seconds: 3));
+    if (car == null) {
+      await _saveCar();
+    } else {
+      await _updateCar();
+    }
 
     setState(() {
       _showProgress = false;
     });
+  }
 
-    print("Fim.");
+  _updateCar() async {
+    car.nome = tNome.text;
+    car.descricao = tDesc.text;
+    car.tipo = _getTipo();
+
+    ApiResponse<Car> response = await CarsApi.update(car);
+
+    if (response.ok) {
+      alert(context, "Sucesso", "O carro foi atualizado com sucesso");
+    } else {
+      alert(context, "Algo deu errado", response.message);
+    }
+  }
+
+  _saveCar() async {
+    // Cria o carro
+    var c = new Car();
+    c.nome = tNome.text;
+    c.descricao = tDesc.text;
+    c.tipo = _getTipo();
+
+    ApiResponse<Car> response = await CarsApi.create(c);
+
+    if (response.ok) {
+      alert(context, "Sucesso", "O carro foi salvo com sucesso");
+    } else {
+      alert(context, "Algo deu errado", response.message);
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getting_started/entities/user.dart';
 import 'package:getting_started/pages/cars/login_bloc.dart';
-import 'package:getting_started/utils/api.dart';
+import 'package:getting_started/services/api/api.dart';
 import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_alert.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';

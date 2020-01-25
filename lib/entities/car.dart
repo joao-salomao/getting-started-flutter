@@ -1,3 +1,4 @@
+import 'dart:convert' as convert;
 import 'package:getting_started/entities/entity.dart';
 
 class Car extends Entity {
@@ -20,7 +21,7 @@ class Car extends Entity {
       this.latitude,
       this.longitude});
 
-  Car.fromJson(Map<String, dynamic> json) {
+  Car.fromMap(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];
     tipo = json['tipo'];
@@ -32,7 +33,7 @@ class Car extends Entity {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['nome'] = this.nome;
@@ -43,5 +44,11 @@ class Car extends Entity {
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     return data;
+  }
+  
+
+  String toJson() {
+    String json = convert.json.encode(toMap());
+    return json;
   }
 }

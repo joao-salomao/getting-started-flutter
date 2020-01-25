@@ -14,7 +14,7 @@ abstract class BaseDAO<T extends Entity> {
 
   Future<int> save(T entity) async {
     var dbClient = await db;
-    var id = await dbClient.insert(table, entity.toJson(),
+    var id = await dbClient.insert(table, entity.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     print('id: $id');
     return id;

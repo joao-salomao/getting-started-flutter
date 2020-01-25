@@ -13,7 +13,7 @@ class Api {
         "password": password,
       };
 
-      Map<String, String> headers = await _getHeaders();
+      Map<String, String> headers = await getHeaders();
 
       String mapEncoded = convert.jsonEncode(map);
 
@@ -40,13 +40,13 @@ class Api {
       final url =
           "http://carros-springboot.herokuapp.com/api/v2/carros/tipo/$type";
 
-      Map<String, String> headers = await _getHeaders();
+      Map<String, String> headers = await getHeaders();
 
       final response = await http.get(url, headers: headers);
       final json = response.body;
       final List mapList = convert.jsonDecode(json);
       final List<Car> cars =
-          mapList.map<Car>((map) => Car.fromJson(map)).toList();
+          mapList.map<Car>((map) => Car.fromMap(map)).toList();
           
       return cars;
     } catch (error) {
@@ -54,7 +54,7 @@ class Api {
     }
   }
 
-  static Future<Map<String, String>> _getHeaders() async {
+  static Future<Map<String, String>> getHeaders() async {
     User user = await User.get();
     if (user == null) {
       return {"Content-Type": "application/json"};

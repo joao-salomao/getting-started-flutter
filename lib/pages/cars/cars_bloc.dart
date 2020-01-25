@@ -1,6 +1,6 @@
 import 'package:getting_started/dao/car_dao.dart';
-import 'package:getting_started/utils/api.dart';
 import 'package:getting_started/entities/car.dart';
+import 'package:getting_started/services/api/api.dart';
 import 'package:getting_started/utils/network.dart';
 import 'package:getting_started/utils/simple_bloc.dart';
 
