@@ -1,5 +1,5 @@
 import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:getting_started/utils/http_helper.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/services/api/api.dart';
 
@@ -8,10 +8,10 @@ class CarsApi {
     try {
       final String url =
           "https://carros-springboot.herokuapp.com/api/v2/carros";
-      Map<String, String> headers = await Api.getHeaders();
+
       String json = car.toJson();
 
-      final response = await http.post(url, headers: headers, body: json);
+      final response = await http.post(url, body: json);
 
       Map mapResponse = convert.json.decode(response.body);
       if (response.statusCode == 201) {
@@ -30,10 +30,9 @@ class CarsApi {
   static Future<ApiResponse> update(Car car) async {
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
-      Map<String, String> headers = await Api.getHeaders();
       String json = car.toJson();
 
-      final response = await http.put(url, headers: headers, body: json);
+      final response = await http.put(url, body: json);
 
       Map mapResponse = convert.json.decode(response.body);
       if (response.statusCode == 200) {
@@ -52,9 +51,8 @@ class CarsApi {
     static Future<ApiResponse> delete(Car car) async {
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
-      Map<String, String> headers = await Api.getHeaders();
 
-      final response = await http.delete(url, headers: headers);
+      final response = await http.delete(url);
 
       Map mapResponse = convert.json.decode(response.body);
       if (response.statusCode == 200) {

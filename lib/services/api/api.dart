@@ -1,5 +1,5 @@
 import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:getting_started/utils/http_helper.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/entities/user.dart';
 
@@ -13,13 +13,10 @@ class Api {
         "password": password,
       };
 
-      Map<String, String> headers = await getHeaders();
-
       String mapEncoded = convert.jsonEncode(map);
 
       var response = await http.post(
         url,
-        headers: headers,
         body: mapEncoded,
       );
 
@@ -39,10 +36,7 @@ class Api {
     try {
       final url =
           "http://carros-springboot.herokuapp.com/api/v2/carros/tipo/$type";
-
-      Map<String, String> headers = await getHeaders();
-
-      final response = await http.get(url, headers: headers);
+      final response = await http.get(url);
       final json = response.body;
       final List mapList = convert.jsonDecode(json);
       final List<Car> cars =
@@ -52,17 +46,6 @@ class Api {
     } catch (error) {
       return [];
     }
-  }
-
-  static Future<Map<String, String>> getHeaders() async {
-    User user = await User.get();
-    if (user == null) {
-      return {"Content-Type": "application/json"};
-    }
-    return {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer ${user.token}"
-    };
   }
 }
 
