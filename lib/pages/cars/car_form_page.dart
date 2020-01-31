@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getting_started/entities/car.dart';
@@ -7,6 +8,7 @@ import 'package:getting_started/services/api/cars_api.dart';
 import 'package:getting_started/widgets/app_alert.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CarFormPage extends StatefulWidget {
   final Car car;
@@ -23,6 +25,7 @@ class _CarFormPageState extends State<CarFormPage> {
   final tNome = TextEditingController();
   final tDesc = TextEditingController();
   final tTipo = TextEditingController();
+  File _file;
 
   int _radioIndex = 0;
 
@@ -120,14 +123,34 @@ class _CarFormPageState extends State<CarFormPage> {
   }
 
   _headerFoto() {
-    return car != null
-        ? CachedNetworkImage(
-            imageUrl: car.urlFoto ?? "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
-          )
-        : Image.asset(
-            "assets/images/camera.png",
-            height: 150,
-          );
+    return InkWell(
+      child: _file != null
+          ? Image.file(
+              _file,
+              height: 150,
+            )
+          : car != null
+              ? CachedNetworkImage(
+                  imageUrl: car.urlFoto ??
+                      "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
+                  height: 150,
+                )
+              : Image.asset(
+                  "assets/images/camera.png",
+                  height: 150,
+                ),
+      onTap: _onClickTakePhoto,
+    );
+  }
+
+  void _onClickTakePhoto() async {
+    File file = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print(file);
+    if (file != null) {
+      setState(() {
+        _file = file;
+      });
+    }
   }
 
   _radioTipo() {
@@ -218,7 +241,7 @@ class _CarFormPageState extends State<CarFormPage> {
     car.descricao = tDesc.text;
     car.tipo = _getTipo();
 
-    ApiResponse response = await CarsApi.update(car);
+    ApiResponse response = await CarsApi.update(car, _file);
 
     if (response.ok) {
       alert(context, "Sucesso", "O carro foi atualizado com sucesso");
@@ -234,7 +257,7 @@ class _CarFormPageState extends State<CarFormPage> {
     c.descricao = tDesc.text;
     c.tipo = _getTipo();
 
-    ApiResponse response = await CarsApi.create(c);
+    ApiResponse response = await CarsApi.create(c, _file);
 
     if (response.ok) {
       alert(context, "Sucesso", "O carro foi salvo com sucesso");

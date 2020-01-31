@@ -1,14 +1,18 @@
+import 'dart:io';
 import 'dart:convert' as convert;
-import 'package:getting_started/utils/http_helper.dart' as http;
 import 'package:getting_started/entities/car.dart';
 import 'package:getting_started/services/api/api.dart';
+import 'package:getting_started/utils/http_helper.dart' as http;
+import 'package:getting_started/services/api/upload_api.dart';
 
 class CarsApi {
-  static Future<ApiResponse> create(Car car) async {
+  static Future<ApiResponse> create(Car car, File file) async {
     ApiResponse apiResponse;
     try {
       final String url =
           "https://carros-springboot.herokuapp.com/api/v2/carros";
+      
+      await _uploadCarPhotoHandle(car, file);
 
       String json = car.toJson();
 
@@ -29,10 +33,13 @@ class CarsApi {
     return apiResponse;
   }
 
-  static Future<ApiResponse> update(Car car) async {
+  static Future<ApiResponse> update(Car car, File file) async {
     ApiResponse apiResponse;
     try {
       final String url = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
+
+      await _uploadCarPhotoHandle(car, file);
+
       String json = car.toJson();
 
       final response = await http.put(url, body: json);
@@ -71,5 +78,14 @@ class CarsApi {
           "Não foi possível deletar o carro. Tente novamente");
     }
     return apiResponse;
+  }
+
+  static Future<void> _uploadCarPhotoHandle(Car car, File file) async {
+      if (file != null) {
+        final uploadResponse = await UploadApi.upload(file);
+        if (uploadResponse.ok) {
+          car.urlFoto = uploadResponse.result;
+        }
+      }
   }
 }
