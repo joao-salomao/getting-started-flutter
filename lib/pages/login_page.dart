@@ -6,6 +6,7 @@ import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_alert.dart';
 import 'package:getting_started/widgets/app_raised_button.dart';
 import 'package:getting_started/widgets/app_text_form_field.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'cars/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -78,10 +79,23 @@ class _LoginPageState extends State<LoginPage> {
                 );
               },
             ),
+            Container(
+              margin: EdgeInsets.only(top: 16),
+              width: double.infinity,
+              height: 50,
+              child: GoogleSignInButton(
+                onPressed: _onClickLoginGoogle,
+                darkMode: false,
+              ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  _onClickLoginGoogle() {
+    print("loggin google");
   }
 
   String _emailValidator(String value) {
