@@ -6,6 +6,7 @@ import 'package:getting_started/services/api/api.dart';
 import 'package:getting_started/services/api/cars_api.dart';
 import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_alert.dart';
+import 'car_video_page.dart';
 
 class CarPage extends StatefulWidget {
   static String loremIpsum =
@@ -34,7 +35,9 @@ class _CarPageState extends State<CarPage> {
           ),
           IconButton(
             icon: Icon(Icons.videocam),
-            onPressed: () {},
+            onPressed: () {
+              push(context, CarVideoPage(car));
+            },
           ),
           PopupMenuButton<String>(
             onSelected: _onClickPopupMenuItem,
