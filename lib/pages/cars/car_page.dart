@@ -7,6 +7,7 @@ import 'package:getting_started/services/api/cars_api.dart';
 import 'package:getting_started/utils/navigation.dart';
 import 'package:getting_started/widgets/app_alert.dart';
 import 'car_video_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarPage extends StatefulWidget {
   static String loremIpsum =
@@ -35,9 +36,7 @@ class _CarPageState extends State<CarPage> {
           ),
           IconButton(
             icon: Icon(Icons.videocam),
-            onPressed: () {
-              push(context, CarVideoPage(car));
-            },
+            onPressed: _onClickShowVideo,
           ),
           PopupMenuButton<String>(
             onSelected: _onClickPopupMenuItem,
@@ -61,9 +60,12 @@ class _CarPageState extends State<CarPage> {
       child: ListView(
         children: <Widget>[
           CachedNetworkImage(
-            imageUrl: car.urlFoto ?? "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
-            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => Center(child:Icon(Icons.error)),
+            imageUrl: car.urlFoto ??
+                "https://cdn.europosters.eu/image/750/posters/cars-3-mcqueen-race-i47515.jpg",
+            placeholder: (context, url) =>
+                Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) =>
+                Center(child: Icon(Icons.error)),
           ),
           _carHeader(),
           _carBody(),
@@ -148,7 +150,8 @@ class _CarPageState extends State<CarPage> {
   _deleteCar(Car car) async {
     ApiResponse response = await CarsApi.delete(car);
     if (response.ok) {
-      alert(context, "Sucesso", "O carro foi deletado com sucesso", callback: () {
+      alert(context, "Sucesso", "O carro foi deletado com sucesso",
+          callback: () {
         Navigator.pop(context);
       });
     } else {
@@ -159,4 +162,14 @@ class _CarPageState extends State<CarPage> {
   void _onClickFavorite() {}
 
   void _onClickShare() {}
+
+  void _onClickShowVideo() async {
+    //push(context, CarVideoPage(car));
+    var url = car.urlVideo;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      alert(context,"Erro", "Não foi possível abrir o vídeo");
+    }
+  }
 }
